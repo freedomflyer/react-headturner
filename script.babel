@@ -1,0 +1,47 @@
+    var pics = [
+      {url: "https://i.warbycdn.com/-/f/1-men-downing-sunglasses-walnut-tortoise-headturn-839-b4a128e2?quality=70&width=1000"},
+      {url: "https://i.warbycdn.com/-/f/2-men-downing-sunglasses-walnut-tortoise-headturn-839-094a4d6f?quality=70&width=1000"},
+      {url: "https://i.warbycdn.com/-/f/3-men-downing-sunglasses-walnut-tortoise-headturn-839-e07a5c4e?quality=70&width=1000"},
+      {url: "https://i.warbycdn.com/-/f/4-men-downing-sunglasses-walnut-tortoise-headturn-839-43496210?quality=70&width=1000"},
+      {url: "https://i.warbycdn.com/-/f/5-men-downing-sunglasses-walnut-tortoise-headturn-839-8e5e2d23?quality=70&width=1000"},
+      {url: "https://i.warbycdn.com/-/f/6-men-downing-sunglasses-walnut-tortoise-headturn-839-f952ff5e?quality=70&width=1000"},
+      {url: "https://i.warbycdn.com/-/f/7-men-downing-sunglasses-walnut-tortoise-headturn-839-4bd7cbb3?quality=70&width=1000"},
+    ]
+  
+class HeadTurner extends React.Component {
+  constructor(props) {
+    super(props)
+    
+    this.state = {
+      picNum: 0,
+      isToggleOn: true,
+    }
+  }
+  
+  updatePhoto(e) {
+    e.persist()
+
+    var sections = this.props.pics.length
+    
+    var picX = e.pageX - e.target.offsetLeft
+    var percentageAcross = picX / e.target.width
+    var picNum = Math.floor(percentageAcross * sections)
+    
+    this.setState({
+      picNum: picNum
+    })
+  }
+
+  render() {
+    return (
+      <div onMouseMove={e => this.updatePhoto(e)}>
+        <img src={this.props.pics[this.state.picNum].url}></img>
+      </div>
+    )
+  }
+} 
+
+ReactDOM.render(
+  <HeadTurner pics={pics} />,
+  document.getElementById('root')
+)
